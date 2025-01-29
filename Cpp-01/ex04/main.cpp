@@ -1,36 +1,38 @@
+#include "Myreplacer.hpp"
 #include <iostream>
 #include <fstream>
-
-void process_line(std::string line, std::string s1, std::string s2)
-{
-    size_t pos = 0;
-    while ((pos = line.find(s1, pos)) != std::string::npos)
-    {
-        line.replace(pos, s1.length(), s2);
-        pos += s2.length();
-    }
-    std::cout << line << std::endl;
-}
+#include <string>
 
 int main(int ac, char **av)
 {
-    (void)av;
-    if(ac!=4)
+    if (ac != 4)
     {
-        std::cout <<"Usage : <filename>  <S1>  <S2>" <<std::endl;
+        std::cout << "Usage : <filename>  <String to find1>  <String to replace2>" << std::endl;
         return 1;
     }
-    std::ifstream my_file(av[1]);
-    if(!my_file)
+    std::ifstream in_file(av[1]);
+    if (!in_file)
     {
-        std::cout << "Error: Unable to open the file." <<std::endl;
+        std::cout << "Error: Unable to open the file." << std::endl;
         return 1;
     }
+
+    std::string outfilename = std::string(av[1]) + ".replace";
+    std::ofstream out_file(outfilename.c_str());
+
+    if (!out_file)
+    {
+        std::cout << "Error: Unable to open the file." << std::endl;
+        return 1;
+    }
+    Myreplacer replacer(av[2], av[3]);
     std::string line;
-    while (!my_file.eof())
+    while (std::getline(in_file, line))
     {
-        getline(my_file,line);
-        process_line(line, av[2], av[3]);
+        out_file << replacer.process_line(line);
+        if (in_file.good())
+            out_file << std::endl;
     }
-    
+    in_file.close();
+    out_file.close();
 }
