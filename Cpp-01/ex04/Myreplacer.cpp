@@ -16,6 +16,7 @@ std::string Myreplacer::process_line(std::string& line)
         result += line.substr(start_pos, pos - start_pos);
         result += s_toreplace;
         start_pos = pos + s_tofind.length();
+        pos+=s_tofind.length();
     }
     result += line.substr(start_pos);
     return result;
