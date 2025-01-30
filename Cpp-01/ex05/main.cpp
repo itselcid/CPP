@@ -8,6 +8,7 @@ int main()
     harl.complain("INFO");
     harl.complain("WARNING");
     harl.complain("ERROR");
+    harl.complain("ERRORrrrrr");
     
     return 0;
 }

@@ -34,11 +34,18 @@ void Harl::complain(std::string level)
 {
     void (Harl::*farray[])(void) = {&Harl::debug, &Harl::info, &Harl::warning, &Harl::error};
     std::string levels[] = {"DEBUG", "INFO", "WARNING", "ERROR"};
+    int found = 0;
     int i = 0;
     while (i < 4)
     {
         if (level == levels[i])
+        {
             (this->*farray[i])();
+            found = 1;
+        }
+    
         i++;
     }
+    if (found == 0)
+        std::cout << "Invalid level\n";
 }
