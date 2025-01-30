@@ -1,5 +1,5 @@
-#pragma once
-
+#ifndef MYREPLACER_HPP
+#define MYREPLACER_HPP
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -13,3 +13,5 @@ public:
     Myreplacer(const std::string s1, const std::string s2);
     std::string process_line(std::string &line);
 };
+
+#endif
