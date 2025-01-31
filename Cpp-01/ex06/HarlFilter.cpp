@@ -28,41 +28,39 @@ void HarlFilter::error(void)
 }
 void HarlFilter::complain(std::string level)
 {
-    int level_num;
-    
-    if (level == "DEBUG")
-        level_num = 0;
-    else if (level == "INFO")
-        level_num = 1;
-    else if (level == "WARNING")
-        level_num = 2;
-    else if (level == "ERROR")
-        level_num = 3;
-    else
-        level_num = 4;
-
-      switch (level_num)
+    int level_num = 0;
+    std::string levels[4] = {"DEBUG", "INFO", "WARNING", "ERROR"};
+    while (level_num < 4)
     {
-        case 0:
-            debug();
-            info();
-            warning();
-            error();
+
+        if (level == levels[level_num])
+        {
             break;
-        case 1:
-            info();
-            warning();
-            error();
-            break;
-        case 2:
-            warning();
-            error();
-            break;
-        case 3:
-            error();
-            break;
-        default:
-            std::cout << "[ Probably complaining about insignificant problems ]" << std::endl;
-            break;
+        }
+        level_num++;
+    }
+    switch (level_num)
+    {
+    case 0:
+        debug();
+        info();
+        warning();
+        error();
+        break;
+    case 1:
+        info();
+        warning();
+        error();
+        break;
+    case 2:
+        warning();
+        error();
+        break;
+    case 3:
+        error();
+        break;
+    default:
+        std::cout << "[ Probably complaining about insignificant problems ]" << std::endl;
+        break;
     }
 }
