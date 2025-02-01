@@ -5,11 +5,12 @@
 
 int main(int ac, char **av)
 {
-    if (ac != 4)
+    if (ac != 4 || !av[1][0] || !av[2][0] || !av[3][0])
     {
-        std::cout << "Usage : <filename>  <String to find1>  <String to replace2>" << std::endl;
+        std::cout << "Usage: <filename> <string_to_find> <string_to_replace>" << std::endl;
         return 1;
     }
+
     std::ifstream in_file(av[1]);
     if (!in_file)
     {
@@ -30,7 +31,7 @@ int main(int ac, char **av)
     while (std::getline(in_file, line))
     {
         out_file << replacer.process_line(line);
-        if (in_file.good())
+        if (!in_file.eof())
             out_file << std::endl;
     }
     in_file.close();
