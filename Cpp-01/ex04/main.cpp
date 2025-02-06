@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <cstdio>
 
 int main(int ac, char **av)
 {
@@ -18,6 +19,11 @@ int main(int ac, char **av)
         return 1;
     }
 
+    if (in_file.peek() == EOF)
+    {
+        std::cout << "Error: File is empty" << std::endl;
+        return 1;
+    }
     std::string outfilename = std::string(av[1]) + ".replace";
     std::ofstream out_file(outfilename.c_str());
 
