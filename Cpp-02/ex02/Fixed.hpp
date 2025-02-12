@@ -30,6 +30,15 @@ class Fixed
 
     Fixed operator+(const Fixed &rhs) ;
     Fixed operator-(const Fixed &rhs) ;
+    Fixed operator*(const Fixed &rhs) ;
+    Fixed operator/(const Fixed &rhs) ;
+
+	void operator++();
+	void operator--();
+	Fixed operator++(int);
+	Fixed operator--(int);
+
+
 
 };
 

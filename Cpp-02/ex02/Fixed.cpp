@@ -78,22 +78,69 @@ bool Fixed::operator!=(const Fixed &rhs)
 	return (value != rhs.getRawBits());
 }
 
-//Arithmetic operators:
+// Arithmetic operators:
 
 Fixed Fixed::operator+(const Fixed &rhs)
 {
-    Fixed tmp;
-    tmp.value=this->value + rhs.getRawBits()
-    return tmp;
+	Fixed tmp;
+	tmp.value = this->value + rhs.getRawBits();
+	return tmp;
 }
 
 Fixed Fixed::operator-(const Fixed &rhs)
 {
-    Fixed tmp;
-    tmp.value=this->value - rhs.getRawBits();
-    return tmp
+	Fixed tmp;
+	tmp.value = this->value - rhs.getRawBits();
+	return tmp;
 }
 
+Fixed Fixed::operator*(const Fixed &rhs)
+{
+	Fixed result;
+	long long temp = (long long)this->value * rhs.getRawBits();
+	result.setRawBits(temp >> fractionalBits);
+	return result;
+}
+Fixed Fixed::operator/(const Fixed &rhs)
+{
+	if (rhs.getRawBits() == 0)
+	{
+		std::cout << "Error: you cant divid by zero" << std::endl;
+		return Fixed();
+	}
+
+	Fixed result;
+	int temp = ((long long)this->value << fractionalBits) / rhs.getRawBits();
+	result.setRawBits(temp);
+	return result;
+}
+
+// increment/decrement
+
+void Fixed::operator++()
+{
+	value++;
+}
+
+void Fixed::operator++()
+{
+	value--;
+}
+
+Fixed Fixed::operator++(int)
+{
+	Fixed tmp;
+	tmp = (*this);
+	value++;
+	return tmp;
+}
+Fixed Fixed::operator++(int)
+{
+	Fixed tmp;
+	tmp = (*this);
+	value--;
+	return tmp;
+}
 
 std::ostream &operator<<(std::ostream &output, const Fixed &fixed)
 {
