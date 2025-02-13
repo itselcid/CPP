@@ -53,27 +53,27 @@ int Fixed::toInt(void) const
 	return (value >> fractionalBits);
 }
 // Comparison operators:
-bool Fixed::operator>(const Fixed &rhs)
+bool Fixed::operator>(const Fixed &rhs) const
 {
 	return (value > rhs.getRawBits());
 }
-bool Fixed::operator>=(const Fixed &rhs)
+bool Fixed::operator>=(const Fixed &rhs) const
 {
 	return (value >= rhs.getRawBits());
 }
-bool Fixed::operator<(const Fixed &rhs)
+bool Fixed::operator<(const Fixed &rhs) const
 {
 	return (value < rhs.getRawBits());
 }
-bool Fixed::operator<=(const Fixed &rhs)
+bool Fixed::operator<=(const Fixed &rhs) const
 {
 	return (value <= rhs.getRawBits());
 }
-bool Fixed::operator==(const Fixed &rhs)
+bool Fixed::operator==(const Fixed &rhs) const
 {
 	return (value == rhs.getRawBits());
 }
-bool Fixed::operator!=(const Fixed &rhs)
+bool Fixed::operator!=(const Fixed &rhs) const
 {
 	return (value != rhs.getRawBits());
 }
@@ -117,29 +117,30 @@ Fixed Fixed::operator/(const Fixed &rhs)
 
 // increment/decrement
 
-void Fixed::operator++()
+Fixed &Fixed::operator++()
 {
-	value++;
+	++value;
+	return (*this);
 }
 
-void Fixed::operator++()
+Fixed &Fixed::operator--()
 {
-	value--;
+	--value;
+	return (*this);
 }
 
 Fixed Fixed::operator++(int)
 {
-	Fixed tmp;
-	tmp = (*this);
+	Fixed temp(*this);
 	value++;
-	return tmp;
+	return temp;
 }
-Fixed Fixed::operator++(int)
+
+Fixed Fixed::operator--(int)
 {
-	Fixed tmp;
-	tmp = (*this);
+	Fixed temp(*this);
 	value--;
-	return tmp;
+	return temp;
 }
 
 std::ostream &operator<<(std::ostream &output, const Fixed &fixed)
@@ -151,4 +152,36 @@ std::ostream &operator<<(std::ostream &output, const Fixed &fixed)
 Fixed::~Fixed()
 {
 	std::cout << "Destructor called" << std::endl;
+}
+
+// Min/Max function
+Fixed &Fixed::min(Fixed &a, Fixed &b)
+{
+	if (a < b)
+		return a;
+	else
+		return b;
+}
+
+const Fixed &Fixed::min(const Fixed &a, const Fixed &b)
+{
+	if (a < b)
+		return a;
+	else
+		return b;
+}
+
+Fixed &Fixed::max(Fixed &a, Fixed &b)
+{
+	if (a > b)
+		return a;
+	else
+		return b;
+}
+const Fixed &Fixed::max(const Fixed &a, const Fixed &b)
+{
+	if (a > b)
+		return a;
+	else
+		return b;
 }
