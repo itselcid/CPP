@@ -14,6 +14,7 @@ Fixed::Fixed(const Fixed &obj)
 
 Fixed::Fixed(const int n)
 {
+
 	value = n << fractionalBits;
 }
 
