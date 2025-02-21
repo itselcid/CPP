@@ -15,7 +15,7 @@ ScavTrap::ScavTrap(std::string _name) :ClapTrap(_name)
     hit_points = 100;
     energy_points = 50;
     attack_damage = 20;
-    std::cout <<" Scavtrap "<< Name << " constructor" <<std::endl;
+    std::cout <<"Scavtrap "<< Name << " constructor" <<std::endl;
 };
 ScavTrap &ScavTrap::operator=(const ScavTrap &obj)
 {

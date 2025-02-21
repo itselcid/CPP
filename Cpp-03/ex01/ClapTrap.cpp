@@ -1,12 +1,20 @@
 #include "ClapTrap.hpp"
 
+ClapTrap::ClapTrap()
+{
+    Name = "Deafult";
+    hit_points = 10;
+    energy_points = 10;
+    attack_damage = 0;  
+    std::cout << "Default constructor called" << std::endl;
+}
 ClapTrap::ClapTrap(std::string _name)
 {
     Name = _name;
     hit_points = 10;
     energy_points = 10;
     attack_damage = 0;  
-    std::cout << "Default constructor called" << std::endl;
+    std::cout << "constructor called" << std::endl;
 }
 
 ClapTrap &ClapTrap::operator=(const ClapTrap &obj)

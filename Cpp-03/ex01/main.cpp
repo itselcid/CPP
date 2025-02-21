@@ -1,24 +1,15 @@
 #include "ClapTrap.hpp"
+#include "ScavTrap.hpp"
 
 int main()
 {
 
-    ClapTrap clap1("R2D2");
-    ClapTrap clap2(clap1);
-    clap1.attack("C3PO");
-    clap1.takeDamage(5);    
-    clap1.beRepaired(3);   
-    for (int i = 1; i <= 11; i++)
-    {
-        std::cout << "Attack attempt " << i << ": ";
-        clap1.attack("Target");
-    }
-    
-    clap1.beRepaired(5);   
-    clap2.takeDamage(15);   
-    clap2.attack("Target");
-    clap2.beRepaired(5);   
-    
+    ScavTrap scav("Guardian");
+    scav.attack("Enemy");
+    scav.ClapTrap::attack("hehe");
+    scav.takeDamage(30);
+    scav.beRepaired(20);
+    scav.guardGate();
     return 0;
 }
 
