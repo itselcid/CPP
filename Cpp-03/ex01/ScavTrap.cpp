@@ -25,9 +25,8 @@ ScavTrap &ScavTrap::operator=(const ScavTrap &obj)
 
 ScavTrap::ScavTrap(const ScavTrap &obj) : ClapTrap(obj)
 {
-    *this = obj;
     std::cout << "ScavTrap " << Name << " copy constructor" << std::endl;
-};
+}
 
 ScavTrap::~ScavTrap()
 {
