@@ -30,6 +30,7 @@ int main()
     const WrongAnimal *wrongCat = new WrongCat();
 
     std::cout << "\nTypes:" << std::endl;
+    std::cout << "wrongMeta Type: " << wrongMeta->getType() << std::endl;
     std::cout << "wrongCat Type: " << wrongCat->getType() << std::endl;
 
     std::cout << "\nSounds:" << std::endl;
