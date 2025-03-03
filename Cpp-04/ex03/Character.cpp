@@ -56,8 +56,9 @@ Character::~Character()
         delete materias[i];
         i++;
     }
-    cleanupMaterias();
+   
 }
+
 std::string const &Character::getName() const
 {
     return name;
@@ -108,15 +109,24 @@ void Character::storeMateria(AMateria *m)
     if (!m)
         return;
 
+    int i = 0;
+    while (i < arraySize)
+    {
+        if (deletedMaterias[i] == m)
+            return;
+        i++;
+    }
     expandArray();
     deletedMaterias[arraySize++] = m;
 }
 
 void Character::cleanupMaterias()
 {
-    for (int i = 0; i < arraySize; i++)
+    int i = 0;
+    while (i < arraySize)
     {
         delete deletedMaterias[i];
+        i++;
     }
 
     delete[] deletedMaterias;
