@@ -7,7 +7,9 @@
 int main()
 {
     IMateriaSource *src = new MateriaSource();
-    src->learnMateria(new Ice());
+    Ice *a = new Ice();
+    src->learnMateria(a);
+    src->learnMateria (a);
     src->learnMateria(new Cure());
     ICharacter *me = new Character("me");
     AMateria *tmp;
@@ -21,5 +23,6 @@ int main()
     delete bob;
     delete me;
     delete src;
+    Character::cleanupMaterias();
     return 0;
 }

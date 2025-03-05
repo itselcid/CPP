@@ -31,8 +31,8 @@ MateriaSource &MateriaSource::operator=(const MateriaSource &obj)
         {
             delete matrias[i];
             if (obj.matrias[i] != NULL)
-                matrias[i] = obj.matrias[i]->clone(); 
-            else 
+                matrias[i] = obj.matrias[i]->clone();
+            else
                 matrias[i] = NULL;
             i++;
         }
@@ -43,9 +43,18 @@ MateriaSource &MateriaSource::operator=(const MateriaSource &obj)
 MateriaSource::~MateriaSource()
 {
     int i = 0;
+    int j;
     while (i < 4)
     {
-        delete matrias[i];
+        j = i +1;
+        while (j < 4)
+        {
+            if (matrias[i] == matrias[j])
+                matrias[i] = NULL;
+            j++;
+        }
+        if(matrias[i])
+            delete matrias[i];
         i++;
     }
 }
@@ -54,13 +63,13 @@ void MateriaSource::learnMateria(AMateria *m)
 {
     if (!m)
         return;
-        
+
     int i = 0;
     while (i < 4)
     {
         if (matrias[i] == NULL)
         {
-            matrias[i] = m->clone();
+            matrias[i] = m;
             return;
         }
         i++;
