@@ -29,11 +29,12 @@ MateriaSource &MateriaSource::operator=(const MateriaSource &obj)
         int i = 0;
         while (i < 4)
         {
-            delete matrias[i];
+            if (matrias[i] != NULL)
+                delete matrias[i];
+
+            matrias[i] = NULL;
             if (obj.matrias[i] != NULL)
                 matrias[i] = obj.matrias[i]->clone();
-            else
-                matrias[i] = NULL;
             i++;
         }
     }

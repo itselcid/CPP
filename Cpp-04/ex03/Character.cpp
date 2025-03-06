@@ -17,6 +17,7 @@ Character::Character(std::string _name)
     materias[2] = NULL;
     materias[3] = NULL;
 }
+
 Character::Character(const Character &obj)
 {
     name = obj.name;
@@ -29,6 +30,7 @@ Character::Character(const Character &obj)
         i++;
     }
 }
+
 Character &Character::operator=(const Character &obj)
 {
     if (this != &obj)
@@ -37,11 +39,12 @@ Character &Character::operator=(const Character &obj)
         int i = 0;
         while (i < 4)
         {
-            delete materias[i];
+            if (materias[i] != NULL)
+                delete materias[i];
+
+            materias[i] = NULL;
             if (obj.materias[i] != NULL)
                 materias[i] = obj.materias[i]->clone();
-            else
-                materias[i] = NULL;
             i++;
         }
     }
@@ -53,18 +56,22 @@ Character::~Character()
     int i = 0;
     while (i < 4)
     {
-        delete materias[i];
+        if (materias[i] != NULL)
+            delete materias[i];
         i++;
     }
-   
 }
 
 std::string const &Character::getName() const
 {
     return name;
 }
+
 void Character::equip(AMateria *m)
 {
+    if (m == NULL)
+        return;
+
     int i = 0;
     while (i < 4)
     {
@@ -72,32 +79,34 @@ void Character::equip(AMateria *m)
             return;
         i++;
     }
+
     i = 0;
-    if (m != NULL)
+    while (i < 4)
     {
-        while (i < 4)
+        if (materias[i] == NULL)
         {
-            if (materias[i] == NULL)
-            {
-                materias[i] = m;
-                break;
-            }
-            i++;
+            materias[i] = m;
+            break;
         }
+        i++;
     }
 }
 
 int Character::arraySize = 0;
-AMateria **Character::deletedMaterias = new AMateria *[1];
+AMateria **Character::deletedMaterias = NULL;
 
 void Character::expandArray()
 {
+    if (deletedMaterias == NULL)
+    {
+        deletedMaterias = new AMateria *[1];
+        return;
+    }
+
     AMateria **newArray = new AMateria *[arraySize + 1];
-    int i = 0;
-    while (i < arraySize)
+    for (int i = 0; i < arraySize; i++)
     {
         newArray[i] = deletedMaterias[i];
-        i++;
     }
 
     delete[] deletedMaterias;
@@ -109,28 +118,34 @@ void Character::storeMateria(AMateria *m)
     if (!m)
         return;
 
-    int i = 0;
-    while (i < arraySize)
+    if (deletedMaterias == NULL)
+        expandArray();
+    else
     {
-        if (deletedMaterias[i] == m)
-            return;
-        i++;
+        for (int i = 0; i < arraySize; i++)
+        {
+            if (deletedMaterias[i] == m)
+                return;
+        }
+        expandArray();
     }
-    expandArray();
     deletedMaterias[arraySize++] = m;
 }
 
 void Character::cleanupMaterias()
 {
-    int i = 0;
-    while (i < arraySize)
+    if (!deletedMaterias)
+        return;
+
+    for (int i = 0; i < arraySize; i++)
     {
-        delete deletedMaterias[i];
-        i++;
+        if (deletedMaterias[i])
+            delete deletedMaterias[i];
     }
 
     delete[] deletedMaterias;
 }
+
 void Character::unequip(int idx)
 {
     if (idx >= 0 && idx < 4 && materias[idx] != NULL)
