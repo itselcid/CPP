@@ -2,99 +2,74 @@
 #include "MateriaSource.hpp"
 #include "Ice.hpp"
 #include "Cure.hpp"
+#include <iostream>
 
 int main()
 {
-    {
-        std::cout << "==== Basic Functionality Test ====" << std::endl;
-        IMateriaSource *src = new MateriaSource();
-        Ice *a = new Ice();
-        src->learnMateria(a);
-        src->learnMateria(a);
-        src->learnMateria(new Cure());
+    IMateriaSource *src = new MateriaSource();
 
-        ICharacter *me = new Character("me");
-        AMateria *tmp;
-        tmp = src->createMateria("ice");
-        me->equip(tmp);
-        tmp = src->createMateria("cure");
-        me->equip(tmp);
+    src->learnMateria(new Ice()); 
+    src->learnMateria(new Cure);  
+    
 
-        ICharacter *bob = new Character("bob");
-        me->use(0, *bob);
-        me->use(1, *bob);
+    std::cout << "\n2. Creating character 'me':" << std::endl;
+    ICharacter *me = new Character("me");
 
-        delete bob;
-        delete me;
-        delete src;
-    }
+    
+    std::cout << "\n3. Creating and equipping materias:" << std::endl;
+    AMateria *tmp;
 
-    std::cout << "\n==== Edge Cases Test ====" << std::endl;
+    tmp = src->createMateria("ice"); 
+    std::cout << "   Created materia of type: " << tmp->getType() << std::endl;
+    me->equip(tmp); 
+    std::cout << "   Equipped ice materia in slot 0" << std::endl;
 
-    {
-        std::cout << "Test unequip and reequip:" << std::endl;
+    tmp = src->createMateria("cure");
+    std::cout << "   Created materia of type: " << tmp->getType() << std::endl;
+    me->equip(tmp); 
+    std::cout << "   Equipped cure materia in slot 1" << std::endl;
 
-        Character *me = new Character("me");
-        AMateria *ice = new Ice();
+    std::cout << "\n4. Testing invalid materia creation:" << std::endl;
+    tmp = src->createMateria("unknown");
+    if (tmp)
+        std::cout << "   Created unknown materia (shouldn't happen)" << std::endl;
+    else
+        std::cout << "   Failed to create unknown materia type (expected)" << std::endl;
 
-        std::cout << "Equipping ice..." << std::endl;
-        me->equip(ice);
-        me->use(0, *me);
+    std::cout << "\n5. Creating character 'bob':" << std::endl;
+    ICharacter *bob = new Character("bob");
 
-        std::cout << "Unequipping ice..." << std::endl;
-        me->unequip(0); 
-        me->use(0, *me); 
+  
+    std::cout << "\n6. Using materias on bob:" << std::endl;
+    me->use(0, *bob); 
+    me->use(1, *bob);
 
-   
-        std::cout << "Equipping new ice..." << std::endl;
-        ice = new Ice();
-        me->equip(ice);
-        me->use(0, *me);
-
-        delete me; 
-    }
-
-    {
-        std::cout << "\nTest deep copy of characters:" << std::endl;
-
-        Character *original = new Character("original");
-        original->equip(new Ice());
-        original->equip(new Cure());
-
-        std::cout << "Original character using skills:" << std::endl;
-        original->use(0, *original);
-        original->use(1, *original);
-
-        std::cout << "Copying character..." << std::endl;
-        Character *copy = new Character(*original);
-
-        std::cout << "Copy character using skills:" << std::endl;
-        copy->use(0, *copy);
-        copy->use(1, *copy);
-
-        std::cout << "Deleting original..." << std::endl;
-        delete original;
-
-        std::cout << "Copy still works after original is deleted:" << std::endl;
-        copy->use(0, *copy);
-        copy->use(1, *copy);
-
-        delete copy;
-    }
+    std::cout << "\n7. Testing unequip functionality:" << std::endl;
+    std::cout << "   Unequipping materia in slot 1" << std::endl;
+    me->unequip(1); 
+    std::cout << "   Trying to use the unequipped materia:" << std::endl;
+    me->use(1, *bob); 
 
 
-    {
-        std::cout << "\nTest NULL handling:" << std::endl;
+    std::cout << "\n8. Testing character copy:" << std::endl;
+    Character *thirdChar = new Character("third");
+    tmp = src->createMateria("ice");
+    thirdChar->equip(tmp);
 
-        Character *me = new Character("me");
-        me->equip(NULL); 
-        me->use(0, *me); 
-        me->unequip(10);
+    std::cout << "   Creating a copy of 'third' character:" << std::endl;
+    Character *charCopy = new Character(*thirdChar);
+    std::cout << "   Copy name: " << charCopy->getName() << std::endl;
+    std::cout << "   Using copy's materia:" << std::endl;
+    charCopy->use(0, *bob);
 
-        delete me;
-    }
 
-    std::cout << "\nCleaning up any undeleted materias..." << std::endl;
+    std::cout << "\n9. Cleaning up:" << std::endl;
+    delete charCopy;
+    delete thirdChar;
+    delete bob;
+    delete me;
+    delete src;
     Character::cleanupMaterias();
+
     return 0;
 }

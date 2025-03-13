@@ -6,6 +6,7 @@
 
 int main()
 {
+    
   
 
     const Animal *meta = new Animal();

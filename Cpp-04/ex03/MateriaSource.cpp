@@ -47,14 +47,14 @@ MateriaSource::~MateriaSource()
     int j;
     while (i < 4)
     {
-        j = i +1;
+        j = i + 1;
         while (j < 4)
         {
             if (matrias[i] == matrias[j])
                 matrias[i] = NULL;
             j++;
         }
-        if(matrias[i])
+        if (matrias[i])
             delete matrias[i];
         i++;
     }
@@ -70,21 +70,23 @@ void MateriaSource::learnMateria(AMateria *m)
     {
         if (matrias[i] == NULL)
         {
-            matrias[i] = m;
+            matrias[i] = m->clone();
+            delete m;
             return;
         }
         i++;
     }
+    delete m;
 }
 
 AMateria *MateriaSource::createMateria(std::string const &type)
 {
-    int i = 0;
-    while (i < 4)
+    for (int i = 0; i < 4; i++)
     {
         if (matrias[i] != NULL && matrias[i]->getType() == type)
+        {
             return matrias[i]->clone();
-        i++;
+        }
     }
-    return NULL;
+    return 0;
 }
