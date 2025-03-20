@@ -63,7 +63,7 @@ void Bureaucrat::executeForm(AForm const &form)
     try
     {
         form.execute(*this);
-        std::cout <<get_name()<<"executed "<< form.get_name() << std::endl;
+        std::cout <<get_name()<<" executed "<< form.get_name() << std::endl;
     }
     catch (std::exception &e)
     {
@@ -72,7 +72,7 @@ void Bureaucrat::executeForm(AForm const &form)
 }
 std::ostream &operator<<(std::ostream &cout, Bureaucrat &obj)
 {
-    cout << obj.get_name() << ", bureaucrat grade " << obj.get_grade() << " .";
+    cout << obj.get_name() << " bureaucrat grade " << obj.get_grade() << " .";
     return cout;
 }
 
