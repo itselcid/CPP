@@ -1,0 +1,46 @@
+#include "ShrubberyCreationForm.hpp"
+#include <fstream>
+
+ShrubberyCreationForm::ShrubberyCreationForm() : AForm("Shrubbery Form", 145, 137)
+{
+    target = "default";
+}
+ShrubberyCreationForm::ShrubberyCreationForm(std::string _target) : AForm("Shrubbery Form", 145, 137)
+{
+    target = _target;
+}
+ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm &obj) : AForm(obj)
+{
+    target = obj.target;
+}
+ShrubberyCreationForm &ShrubberyCreationForm::operator=(const ShrubberyCreationForm &obj)
+{
+    AForm::operator=(obj);
+    target = obj.target;
+    return *this;
+}
+ShrubberyCreationForm::~ShrubberyCreationForm()
+{
+}
+
+void ShrubberyCreationForm::execute(Bureaucrat const &executor) const
+{
+    if (!is_form_signed())
+        throw AForm::Form_not_signed;
+
+    if (executor.get_grade() > get_sign_execute())
+        throw AForm::low;
+    std::string file_name = target + "_shrubbery";
+    std::ofstream myfile(file_name.c_str());
+    if (!myfile)
+        throw std::runtime_error("Could not create output file");
+    myfile << "    ###    " << std::endl;
+    myfile << "   #####   " << std::endl;
+    myfile << "  #######  " << std::endl;
+    myfile << " ######### " << std::endl;
+    myfile << "###########" << std::endl;
+    myfile << "    |||    " << std::endl;
+    myfile << "    |||    " << std::endl;
+    myfile << "============" << std::endl;
+    myfile.close();
+}
