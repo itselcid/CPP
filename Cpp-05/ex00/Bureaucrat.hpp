@@ -19,10 +19,10 @@ public:
     Bureaucrat &operator=(const Bureaucrat &obj);
     ~Bureaucrat();
 
-    std::string get_name();
-    int get_grade();
+    std::string get_name() const;
+    int get_grade() const;
     void increment_grade();
     void decrement_grade();
 };
 
-std::ostream &operator<<(std::ostream &cout, Bureaucrat &obj);
+std::ostream &operator<<(std::ostream &cout, const Bureaucrat &obj);

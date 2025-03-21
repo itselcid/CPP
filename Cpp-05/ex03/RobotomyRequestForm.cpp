@@ -1,9 +1,11 @@
 #include "RobotomyRequestForm.hpp"
+#include "Bureaucrat.hpp"
 #include <cstdlib>
 #include <ctime>
+
 RobotomyRequestForm::RobotomyRequestForm() : AForm("robotomy request", 72, 45)
 {
-    target = " Default";
+    target = "default";
 }
 RobotomyRequestForm::RobotomyRequestForm(std::string _target) : AForm("robotomy request", 72, 45)
 {
@@ -26,9 +28,9 @@ RobotomyRequestForm::~RobotomyRequestForm() {
 void RobotomyRequestForm::execute(Bureaucrat const &executor) const
 {
     if (!is_form_signed())
-        throw Form_not_signed;
+        throw FormNotSignedException();
     if (executor.get_grade() > get_sign_execute())
-        throw low;
+        throw GradeTooLowException();
 
     srand(time(0));
     int randnum = rand() % 2;

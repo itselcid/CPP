@@ -27,19 +27,19 @@ Form::~Form() {
 
 };
 
-std::string Form::get_name()
+std::string Form::get_name() const
 {
     return name;
 }
-bool Form::is_form_signed()
+bool Form::is_form_signed() const
 {
     return is_signed;
 }
-int Form::get_sign_grade()
+int Form::get_sign_grade() const
 {
     return sign_grade;
 }
-int Form::get_sign_execute()
+int Form::get_sign_execute() const
 {
     return sign_execute;
 }
@@ -48,11 +48,11 @@ void Form::beSigned(Bureaucrat &obj)
     if (obj.get_grade() <= sign_grade)
         is_signed = true;
     else
-        throw low; 
-
+        throw low;
 }
-std::ostream &operator<<(std::ostream &cout, Form &obj){
-    cout << "Form: " << obj.get_name() << ", Signed: " << (obj.is_form_signed() ? "Yes" : "No") 
+std::ostream &operator<<(std::ostream &cout, const Form &obj)
+{
+    cout << "Form: " << obj.get_name() << ", Signed: " << (obj.is_form_signed() ? "Yes" : "No")
          << ", Sign Grade: " << obj.get_sign_grade() << ", Execute Grade: " << obj.get_sign_execute();
     return cout;
 }

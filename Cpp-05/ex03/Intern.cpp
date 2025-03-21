@@ -1,17 +1,27 @@
 #include "Intern.hpp"
 
-Intern::Intern()
-{
-}
-Intern::~Intern()
-{
-}
-Intern::Intern(const Intern &obj)
-{
-}
+Intern::Intern() {}
+Intern::~Intern() {}
+Intern::Intern(const Intern &obj) { (void)obj; }
 Intern &Intern::operator=(const Intern &obj)
 {
+    (void)obj;
     return *this;
+}
+
+AForm *Intern::ShrubberyForm(const std::string &target)
+{
+    return new ShrubberyCreationForm(target);
+}
+
+AForm *Intern::RobotomyForm(const std::string &target)
+{
+    return new RobotomyRequestForm(target);
+}
+
+AForm *Intern::PresidentialForm(const std::string &target)
+{
+    return new PresidentialPardonForm(target);
 }
 
 AForm *Intern::makeForm(std::string form_name, std::string target)
@@ -19,38 +29,27 @@ AForm *Intern::makeForm(std::string form_name, std::string target)
     std::string form_names[3] = {
         "shrubbery creation",
         "robotomy request",
-        "presidential pardon"};
-
-    AForm *form_types[3] = {
-        new ShrubberyCreationForm(target),
-        new RobotomyRequestForm(target),
-        new PresidentialPardonForm(target)};
-
+        "presidential pardon"
+    };
+    
+    AForm* (Intern::*form_functions[3])(const std::string&) = {
+        &Intern::ShrubberyForm,
+        &Intern::RobotomyForm,
+        &Intern::PresidentialForm
+    };
+    
     int i = 0;
-    while (i < 3)
+    while( i < 3)
     {
         if (form_name == form_names[i])
         {
-            std::cout << "Intern creates " << form_types[i]->get_name() << std::endl;
-            int j = 0;
-            while (j < 3)
-            {
-                if (j != i)
-                    delete form_types[j];
-                j++;
-            }
-            return form_types[i];
+            AForm* form = (this->*form_functions[i])(target);
+            std::cout << "Intern creates " << form->get_name() << std::endl;
+            return form;
         }
-
         i++;
     }
-
-    i = 0;
-    while (i < 3)
-    {
-        delete form_types[i];
-        i++;
-    }
-    std::cout << " the Form name passed  doesn’t exist " << std::endl;
+    
+    std::cout << "The form name passed doesn't exist" << std::endl;
     return NULL;
 }

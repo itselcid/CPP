@@ -1,5 +1,8 @@
-#include "AForm.hpp"
+#ifndef ROBOTOMYREQUESTFORM_HPP
+#define ROBOTOMYREQUESTFORM_HPP
 
+#include "AForm.hpp"
+#include "FormNotSignedException.hpp"
 #include <string>
 
 class RobotomyRequestForm : public AForm
@@ -15,3 +18,5 @@ public:
 
     void execute(Bureaucrat const &executor) const;
 };
+
+#endif

@@ -1,7 +1,7 @@
 #include "Bureaucrat.hpp"
 #include "AForm.hpp"
 
-Bureaucrat::Bureaucrat() : name("default"), grade(100) {
+Bureaucrat::Bureaucrat() : name("default"), grade(150) {
                            };
 Bureaucrat::Bureaucrat(std::string _name, int _grade) : name(_name)
 {
@@ -63,17 +63,15 @@ void Bureaucrat::executeForm(AForm const &form)
     try
     {
         form.execute(*this);
-        std::cout <<get_name()<<" executed "<< form.get_name() << std::endl;
+        std::cout << get_name() << " executed " << form.get_name() << std::endl;
     }
     catch (std::exception &e)
     {
-        std::cout <<" the form is not executed because "<<e.what()<<std::endl;
+        std::cout << " the form is not executed because " << e.what() << std::endl;
     }
 }
-std::ostream &operator<<(std::ostream &cout, Bureaucrat &obj)
+std::ostream &operator<<(std::ostream &cout, const Bureaucrat &obj)
 {
-    cout << obj.get_name() << " bureaucrat grade " << obj.get_grade() << " .";
+    cout << obj.get_name() << ", bureaucrat grade " << obj.get_grade() << ".";
     return cout;
 }
-
-

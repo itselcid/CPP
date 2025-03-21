@@ -50,7 +50,7 @@ void AForm::beSigned(Bureaucrat &obj)
     else
         throw low;
 }
-std::ostream &operator<<(std::ostream &cout, AForm &obj)
+std::ostream &operator<<(std::ostream &cout, const AForm &obj)
 {
     cout << "AForm: " << obj.get_name() << ", Signed: " << (obj.is_form_signed() ? "Yes" : "No")
          << ", Sign Grade: " << obj.get_sign_grade() << ", Execute Grade: " << obj.get_sign_execute();

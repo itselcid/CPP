@@ -1,4 +1,5 @@
 #include "ShrubberyCreationForm.hpp"
+#include "Bureaucrat.hpp"
 #include <fstream>
 
 ShrubberyCreationForm::ShrubberyCreationForm() : AForm("shrubbery creation", 145, 137)
@@ -26,10 +27,9 @@ ShrubberyCreationForm::~ShrubberyCreationForm()
 void ShrubberyCreationForm::execute(Bureaucrat const &executor) const
 {
     if (!is_form_signed())
-        throw AForm::Form_not_signed;
-
+        throw FormNotSignedException();
     if (executor.get_grade() > get_sign_execute())
-        throw AForm::low;
+        throw GradeTooLowException();
     std::string file_name = target + "_shrubbery";
     std::ofstream myfile(file_name.c_str());
     if (!myfile)

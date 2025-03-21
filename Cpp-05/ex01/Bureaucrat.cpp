@@ -1,4 +1,5 @@
 #include "Bureaucrat.hpp"
+#include "Form.hpp"
 
 Bureaucrat::Bureaucrat() : name("default"), grade(100) {
                            };
@@ -23,11 +24,11 @@ Bureaucrat::~Bureaucrat()
 {
 }
 
-std::string Bureaucrat::get_name()
+std::string Bureaucrat::get_name() const
 {
     return name;
 }
-int Bureaucrat::get_grade()
+int Bureaucrat::get_grade() const
 {
     return grade;
 }
@@ -58,7 +59,7 @@ void Bureaucrat::signForm(Form &form)
     }
 }
 
-std::ostream &operator<<(std::ostream &cout, Bureaucrat &obj)
+std::ostream &operator<<(std::ostream &cout, const Bureaucrat &obj)
 {
     cout << obj.get_name() << ", bureaucrat grade " << obj.get_grade() << " .";
     return cout;

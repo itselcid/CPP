@@ -1,8 +1,9 @@
 #pragma once
 #include <exception>
+#include <string>
 
 class FormNotSignedException : public std::exception
 {
 public:
-    const char *what() const throw() ;
+    const char *what() const throw();
 };
