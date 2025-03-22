@@ -5,8 +5,5 @@
 class FormNotSignedException : public std::exception
 {
 public:
-    const char *what() const throw()
-    {
-        return "Form is not signed";
-    }
+    const char *what() const throw();
 };
