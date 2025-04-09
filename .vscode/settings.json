@@ -1,0 +1,39 @@
+{
+  "terminal.integrated.fontFamily": "JetBrains Mono, Fira Code, Hack, 'Courier New', monospace",
+  "terminal.integrated.fontSize": 14,
+  "terminal.integrated.lineHeight": 1.3,
+  "terminal.integrated.fontWeight": "500",
+  "terminal.integrated.fontLigatures": true,
+  "terminal.integrated.cursorBlinking": true,
+  "terminal.integrated.cursorStyle": "line",
+  "terminal.integrated.defaultProfile.linux": "bash",
+  "terminal.integrated.shellIntegration.enabled": true,
+  "editor.fontLigatures": true,
+  "terminal.integrated.profiles.linux": {
+    "bash": {
+      "path": "bash",
+      "icon": "terminal-bash"
+    }
+  },
+  "workbench.colorCustomizations": {
+    "terminal.foreground": "#f2f2f2",
+    "terminalCursor.background": "#9e9e9e",
+    "terminalCursor.foreground": "#9e9e9e",
+    "terminal.ansiBlack": "#121212",
+    "terminal.ansiRed": "#ff5555",
+    "terminal.ansiGreen": "#9aa12e",
+    "terminal.ansiYellow": "#f1fa8c",
+    "terminal.ansiBlue": "#a08e2c",
+    "terminal.ansiMagenta": "#ff79c6",
+    "terminal.ansiCyan": "#8be9fd",
+    "terminal.ansiWhite": "#f8f8f2",
+    "terminal.ansiBrightBlack": "#c43050",
+    "terminal.ansiBrightRed": "#ff6e6e",
+    "terminal.ansiBrightGreen": "#5214c5",
+    "terminal.ansiBrightYellow": "#ffffa5",
+    "terminal.ansiBrightBlue": "#28f116",
+    "terminal.ansiBrightMagenta": "#ff92df",
+    "terminal.ansiBrightCyan": "#a4ffff",
+    "terminal.ansiBrightWhite": "#ffffff"
+  }
+}

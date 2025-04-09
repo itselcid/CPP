@@ -45,7 +45,7 @@ void ScalarConverter::convert(const std::string &literal)
     else
     {
         std::string modifeid_literal = literal;
-        if (literal[literal.length() - 1] == 'f')
+        if (literal.find('.') != std::string::npos && literal[literal.length() - 1] == 'f' )
             modifeid_literal = literal.substr(0, literal.length() - 1);
 
         char *endptr;
