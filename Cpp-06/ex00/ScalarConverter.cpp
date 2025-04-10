@@ -7,6 +7,19 @@
 #include <iomanip>
 #include <climits>
 
+ScalarConverter::ScalarConverter(){};
+ScalarConverter::~ScalarConverter(){};
+ScalarConverter &ScalarConverter::operator=(const ScalarConverter &obj)
+{
+    (void)obj;
+    return *this;
+}
+ScalarConverter::ScalarConverter(const ScalarConverter &obj)
+{
+    (void)obj;
+}
+
+
 void ScalarConverter::convert(const std::string &literal)
 {   
     if (literal.empty()) {
