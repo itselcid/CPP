@@ -37,6 +37,7 @@
     "terminal.ansiBrightWhite": "#ffffff"
   },
   "files.associations": {
-    "iostream": "cpp"
+    "iostream": "cpp",
+    "iomanip": "cpp"
   }
 }
