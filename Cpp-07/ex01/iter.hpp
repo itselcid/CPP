@@ -1,4 +1,5 @@
-
+#pragma once 
+#include <cstddef>
 
 template <typename T, typename F>
 void iter(T *array, int len, F func)
