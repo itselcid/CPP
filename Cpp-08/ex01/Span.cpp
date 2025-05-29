@@ -58,19 +58,17 @@ int Span::shortestSpan()
     if (numbers.size() < 2)
         throw std::length_error("the array doesn't have enough numbers");
 
+    std::vector<int> sorted = numbers;
+    std::sort(sorted.begin(),sorted.end());
+
     int shortest = INT_MAX;
-    size_t i = 0;
-    while (i < numbers.size())
+    unsigned int i=1;
+
+    while (i < sorted.size())
     {
-        size_t j = i + 1;
-        while (j < numbers.size())
-        {
-            int diff = std::abs(numbers[i] - numbers[j]);
-            if (diff < shortest)
-                shortest = diff;
-            ++j;
-        }
-        ++i;
+        shortest = std::min(shortest,sorted[i]- sorted[i-1]);
+        i++;
     }
+    
     return shortest;
 }
