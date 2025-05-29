@@ -23,8 +23,6 @@ int main()
     MutantStack<int>::iterator it = mstack.begin();
     MutantStack<int>::iterator ite = mstack.end();
     
-    ++it;
-    --it;
     
     std::cout << "MutantStack contents:" << std::endl;
     while (it != ite)
@@ -41,9 +39,11 @@ int main()
     lst.push_back(0);
     
     std::cout << "\nList contents:" << std::endl;
-    for (std::list<int>::iterator lit = lst.begin(); lit != lst.end(); ++lit)
+    std::list<int>::iterator lit = lst.begin();
+    while ( lit != lst.end())
     {
         std::cout << *lit << std::endl;
+        ++lit;
     }
     
     return 0;
