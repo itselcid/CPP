@@ -2,7 +2,6 @@
 
 BitcoinExchange::BitcoinExchange()
 {
-    std::cout << "constructor called \n";
 };
 
 BitcoinExchange::BitcoinExchange(const BitcoinExchange &other)
@@ -17,7 +16,6 @@ BitcoinExchange &BitcoinExchange::operator=(const BitcoinExchange &other)
 }
 BitcoinExchange::~BitcoinExchange()
 {
-    std::cout << "destructor called\n";
 }
 
 int BitcoinExchange::upload_csv_file()
@@ -99,9 +97,19 @@ int BitcoinExchange::procces_input(const std::string &input)
         double value = validate_value(value_part);
         if (value == -1)
             continue;
-        if(!get_money(date_part))
+        
+        if(day.length() == 2 && day[1] == ' ')
+            day = day.substr(0, 1);
+        if(day.length() == 1)
+            day = "0" + day;
+        if(month.length() == 1)
+            month = "0" + month;
+        
+        std::string normalized_date = year + "-" + month + "-" + day;
+        double price = get_money(normalized_date);
+        if(price == -1)
             continue;
-        std::cout << year << "-" << month << "-" << day << " => " << value * get_money(date_part)<< std::endl;
+        std::cout << normalized_date << " => " << value * price << std::endl;
     }
 
     return 0;
@@ -153,7 +161,6 @@ int BitcoinExchange::validate_day(std::string year, std::string month, std::stri
             return 0;
     }
     int day_int = atoi(day.c_str());
-
     int days_in_month[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
     if ((year_int == 2012 || year_int == 2016 || year_int == 2020 || year_int == 2024) && month_int == 2)
@@ -194,19 +201,15 @@ double BitcoinExchange::validate_value(std::string value_part)
 
 double BitcoinExchange::get_money(std::string date_part)
 {
-    std::string date =date_part.substr(0,date_part.length()-1);
-
-
-    std::map<std::string,double>::iterator it=prices.lower_bound(date);
-    if(it!=prices.end() && it->first ==date)
+    std::map<std::string,double>::iterator it=prices.lower_bound(date_part);
+    if(it!=prices.end() && it->first == date_part)
         return it->second;
     if(it==prices.begin())
     {
-        std::cout << "Error: date should be after 2009-01-02 => " << date << std::endl;
+        std::cout << "Error: date should be after 2009-01-02 => " << date_part << std::endl;
         return -1;
     }
 
     --it;
     return it->second;
-
 }

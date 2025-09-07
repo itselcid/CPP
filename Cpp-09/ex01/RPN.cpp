@@ -11,13 +11,10 @@ int RPN::calculate(std::string input)
     std::stack<int> stack;
     while (getline(ss, item, ' '))
     {
-        if (item.empty())
-            continue;
-
         if (item.length() > 1 || (item != "+" && item != "-" && item != "*" &&
                                   item != "/" && !isdigit(item[0])))
         {
-            std::cerr << "Error input\n";
+            std::cerr << "Error input.\n";
             return 1;
         }
 
